@@ -1,0 +1,22 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-icons-whitesur
+pkgver=2025.07.29
+_tag=2025-07-29
+pkgrel=1
+pkgdesc="WhiteSur icon theme for LuhutOS (macOS-like)"
+arch=(any)
+url="https://github.com/vinceliuice/WhiteSur-icon-theme"
+license=(GPL3)
+depends=(hicolor-icon-theme)
+source=("https://github.com/vinceliuice/WhiteSur-icon-theme/archive/refs/tags/${_tag}.tar.gz")
+sha256sums=('21322390721c42f4af0d550d91ce08ce1b03b5dea043fe4a76c0649765e8378e')
+
+package() {
+    cd "$srcdir/WhiteSur-icon-theme-${_tag}"
+    
+    # Install icons
+    install -dm755 "$pkgdir/usr/share/icons"
+    
+    # Run install script
+    ./install.sh -d "$pkgdir/usr/share/icons"
+}

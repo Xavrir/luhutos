@@ -1,0 +1,53 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-release
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="LuhutOS release and branding package"
+arch=(any)
+license=(MIT)
+depends=(luhutos-keyring luhutos-mirrorlist)
+backup=(etc/luhutos-release)
+install=luhutos-release.install
+
+package() {
+    # Install os-release override
+    install -dm755 "$pkgdir/usr/lib"
+    cat > "$pkgdir/usr/lib/os-release" << 'EOF'
+NAME="LuhutOS"
+PRETTY_NAME="LuhutOS"
+ID=luhutos
+ID_LIKE=arch
+BUILD_ID=rolling
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://github.com/luhutos"
+DOCUMENTATION_URL="https://github.com/luhutos/docs"
+SUPPORT_URL="https://github.com/luhutos/issues"
+BUG_REPORT_URL="https://github.com/luhutos/issues"
+PRIVACY_POLICY_URL="https://github.com/luhutos"
+LOGO=luhutos
+EOF
+    
+    # Link to /etc/os-release
+    install -dm755 "$pkgdir/etc"
+    ln -sf ../usr/lib/os-release "$pkgdir/etc/os-release"
+    
+    # Install luhutos-release file
+    echo "LuhutOS $pkgver" > "$pkgdir/etc/luhutos-release"
+    
+    # Install issue files
+    cat > "$pkgdir/etc/issue" << 'EOF'
+LuhutOS \r (\l)
+
+EOF
+    
+    # Install pacman.conf snippet to include LuhutOS repo
+    install -dm755 "$pkgdir/etc/pacman.d"
+    cat > "$pkgdir/etc/pacman.d/luhutos.conf" << 'EOF'
+# LuhutOS Repository
+# This file is sourced by pacman.conf
+
+[luhutos]
+SigLevel = Optional TrustAll
+Include = /etc/pacman.d/luhutos-mirrorlist
+EOF
+}

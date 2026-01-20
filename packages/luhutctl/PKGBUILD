@@ -1,0 +1,29 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutctl
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="LuhutOS system management CLI tool"
+arch=(any)
+license=(MIT)
+depends=(python)
+makedepends=()
+source=()
+
+package() {
+    cd "$srcdir"
+    
+    # Install Python package
+    install -dm755 "$pkgdir/usr/lib/luhutctl"
+    cp -r "$startdir/src/luhutctl" "$pkgdir/usr/lib/luhutctl/"
+    
+    # Create executable wrapper
+    install -dm755 "$pkgdir/usr/bin"
+    cat > "$pkgdir/usr/bin/luhutctl" << 'EOF'
+#!/bin/bash
+exec python -m luhutctl "$@"
+EOF
+    chmod 755 "$pkgdir/usr/bin/luhutctl"
+    
+    # Update Python path in wrapper
+    sed -i "s|python -m luhutctl|PYTHONPATH=/usr/lib/luhutctl python -m luhutctl|" "$pkgdir/usr/bin/luhutctl"
+}

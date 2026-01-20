@@ -1,0 +1,33 @@
+name: Build LuhutOS ISO
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "iso/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ISO
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux/archlinux:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install archiso dependencies
+        run: |
+          pacman -Sy --noconfirm archiso git sudo
+
+      - name: Build ISO with mkarchiso
+        run: |
+          mkarchiso -v -w /tmp/archiso-tmp -o /tmp/archiso-out iso/
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: luhutos-iso
+          path: /tmp/archiso-out/*.iso

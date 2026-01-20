@@ -1,0 +1,29 @@
+pkgname=luhutos-installer
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="LuhutOS Python TUI installer"
+arch=("any")
+url="https://example.com/luhutos"
+license=("MIT")
+depends=("python" "python-rich")
+source=(
+  "$startdir/../../installer/luhutos_installer"
+  "$startdir/../../installer/scripts/post-install.sh"
+)
+sha256sums=("SKIP" "SKIP")
+
+package() {
+  install -d "${pkgdir}/usr/lib/luhutos-installer"
+  install -d "${pkgdir}/usr/share/luhutos-installer/scripts"
+  install -d "${pkgdir}/usr/bin"
+
+  cp -r "${srcdir}/luhutos_installer" "${pkgdir}/usr/lib/luhutos-installer/"
+  install -m 755 "${srcdir}/post-install.sh" "${pkgdir}/usr/share/luhutos-installer/scripts/post-install.sh"
+
+  cat > "${pkgdir}/usr/bin/luhutos-installer" <<'EOF'
+#!/usr/bin/env bash
+export PYTHONPATH="/usr/lib/luhutos-installer"
+exec /usr/bin/python -m luhutos_installer "$@"
+EOF
+  chmod 755 "${pkgdir}/usr/bin/luhutos-installer"
+}

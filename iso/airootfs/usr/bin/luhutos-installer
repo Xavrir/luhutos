@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export PYTHONPATH="/usr/lib/luhutos-installer"
+exec /usr/bin/python -m luhutos_installer "$@"

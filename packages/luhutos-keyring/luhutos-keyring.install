@@ -1,0 +1,8 @@
+post_install() {
+  pacman-key --add /usr/share/pacman/keyrings/luhutos.gpg
+  pacman-key --lsign-key D9A88B54216EB31291FEB7740CF6E1423D26D85E
+}
+
+post_upgrade() {
+  post_install
+}

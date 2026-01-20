@@ -1,0 +1,17 @@
+post_install() {
+    echo ""
+    echo "LuhutOS base system installed!"
+    echo ""
+    echo "Enabling essential services..."
+    systemctl enable NetworkManager.service 2>/dev/null || true
+    echo ""
+    echo "To complete your LuhutOS setup, install:"
+    echo "  - luhutos-gnome (for GNOME desktop)"
+    echo "  - luhutctl (for system management CLI)"
+    echo "  - luhut-menu (for system management GUI)"
+    echo ""
+}
+
+post_upgrade() {
+    post_install
+}

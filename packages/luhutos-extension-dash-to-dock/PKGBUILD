@@ -1,0 +1,21 @@
+# Maintainer: LuhutOS Team
+# Dash to Dock GNOME Shell Extension
+pkgname=luhutos-extension-dash-to-dock
+pkgver=99
+pkgrel=1
+pkgdesc="Dash to Dock GNOME Shell extension for LuhutOS"
+arch=(any)
+url="https://extensions.gnome.org/extension/307/dash-to-dock/"
+license=(GPL2)
+depends=(gnome-shell)
+# Extension UUID
+_uuid="dash-to-dock@micxgx.gmail.com"
+source=("https://extensions.gnome.org/extension-data/dash-to-dockmicxgx.gmail.com.v${pkgver}.shell-extension.zip")
+sha256sums=('2f08aedee00691999a1a5968f858bdd66ba6feb835a6770c32f71ed149af33bc')
+noextract=("dash-to-dockmicxgx.gmail.com.v${pkgver}.shell-extension.zip")
+
+package() {
+    install -dm755 "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+    bsdtar -xf "$srcdir/dash-to-dockmicxgx.gmail.com.v${pkgver}.shell-extension.zip" \
+        -C "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+}

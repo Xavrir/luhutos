@@ -1,0 +1,22 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-theme-whitesur
+pkgver=2025.07.24
+_tag=2025-07-24
+pkgrel=1
+pkgdesc="WhiteSur GTK theme for LuhutOS (macOS-like)"
+arch=(any)
+url="https://github.com/vinceliuice/WhiteSur-gtk-theme"
+license=(GPL3)
+depends=(gtk3 gtk4 gnome-themes-extra)
+optdepends=('sassc: for building from source')
+source=("https://github.com/vinceliuice/WhiteSur-gtk-theme/archive/refs/tags/${_tag}.tar.gz")
+sha256sums=('5dff6d1de440923f5495ae5b1663b254248dd7daee6921be6dd2dfd2eb957c68')
+
+package() {
+    cd "$srcdir/WhiteSur-gtk-theme-${_tag}/release"
+
+    install -dm755 "$pkgdir/usr/share/themes"
+
+    bsdtar -xf "WhiteSur-Dark.tar.xz" -C "$pkgdir/usr/share/themes"
+    bsdtar -xf "WhiteSur-Light.tar.xz" -C "$pkgdir/usr/share/themes"
+}

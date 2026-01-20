@@ -1,0 +1,37 @@
+# Maintainer: LuhutOS Team
+pkgname=luhut-menu
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="LuhutOS system management GUI (GTK4/Libadwaita)"
+arch=(any)
+license=(MIT)
+depends=(
+    python
+    python-gobject
+    gtk4
+    libadwaita
+    luhutctl
+    polkit
+)
+
+package() {
+    # Install main script
+    install -Dm755 "$startdir/src/luhut-menu.py" \
+        "$pkgdir/usr/lib/luhut-menu/luhut-menu.py"
+    
+    # Create launcher
+    install -dm755 "$pkgdir/usr/bin"
+    cat > "$pkgdir/usr/bin/luhut-menu" << 'EOF'
+#!/bin/bash
+exec python /usr/lib/luhut-menu/luhut-menu.py "$@"
+EOF
+    chmod 755 "$pkgdir/usr/bin/luhut-menu"
+    
+    # Install desktop file
+    install -Dm644 "$startdir/luhut-menu.desktop" \
+        "$pkgdir/usr/share/applications/luhut-menu.desktop"
+    
+    # Install polkit policy
+    install -Dm644 "$startdir/io.luhutos.policy" \
+        "$pkgdir/usr/share/polkit-1/actions/io.luhutos.policy"
+}

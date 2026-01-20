@@ -1,0 +1,22 @@
+post_install() {
+    echo "Updating dconf database..."
+    dconf update 2>/dev/null || true
+    
+    echo ""
+    echo "LuhutOS GNOME defaults installed!"
+    echo "Log out and back in for all changes to take effect."
+    echo ""
+    echo "Theme: WhiteSur-Dark"
+    echo "Icons: WhiteSur-dark"
+    echo "Extensions: Dash to Dock, User Themes, Blur my Shell"
+    echo ""
+    echo "Press Super+Alt+Space to open Luhut Menu"
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    dconf update 2>/dev/null || true
+}

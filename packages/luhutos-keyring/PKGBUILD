@@ -1,0 +1,13 @@
+pkgname=luhutos-keyring
+pkgver=1
+pkgrel=1
+pkgdesc="LuhutOS PGP keyring"
+arch=(any)
+license=(MIT)
+install=luhutos-keyring.install
+source=(luhutos.gpg)
+sha256sums=('8c7042bfa774bcb069346e78b9cc1b035c6b58ec07d2f63cbc1048791877e556')
+
+package() {
+  install -Dm644 "${srcdir}/luhutos.gpg" "${pkgdir}/usr/share/pacman/keyrings/luhutos.gpg"
+}

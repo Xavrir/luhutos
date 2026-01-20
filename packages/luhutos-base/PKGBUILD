@@ -1,0 +1,50 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-base
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="LuhutOS base system configuration"
+arch=(any)
+license=(MIT)
+depends=(
+    base
+    linux
+    linux-firmware
+    btrfs-progs
+    grub
+    efibootmgr
+    networkmanager
+    pipewire
+    pipewire-pulse
+    pipewire-alsa
+    wireplumber
+    sudo
+    nano
+    vim
+    git
+    curl
+    wget
+    htop
+    neofetch
+)
+optdepends=(
+    'luhutos-gnome: GNOME desktop with LuhutOS defaults'
+    'luhutctl: System management CLI'
+    'luhut-menu: System management GUI'
+)
+install=luhutos-base.install
+
+package() {
+    # Install default sudoers config
+    install -dm750 "$pkgdir/etc/sudoers.d"
+    echo "%wheel ALL=(ALL:ALL) ALL" > "$pkgdir/etc/sudoers.d/wheel"
+    chmod 440 "$pkgdir/etc/sudoers.d/wheel"
+    
+    # Install default sysctl for better performance
+    install -dm755 "$pkgdir/etc/sysctl.d"
+    cat > "$pkgdir/etc/sysctl.d/99-luhutos.conf" << 'EOF'
+# LuhutOS default sysctl settings
+vm.swappiness = 10
+vm.vfs_cache_pressure = 50
+EOF
+
+}

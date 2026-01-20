@@ -1,0 +1,20 @@
+# Maintainer: LuhutOS Team
+# User Themes GNOME Shell Extension
+pkgname=luhutos-extension-user-themes
+pkgver=62
+pkgrel=1
+pkgdesc="User Themes GNOME Shell extension for LuhutOS"
+arch=(any)
+url="https://extensions.gnome.org/extension/19/user-themes/"
+license=(GPL2)
+depends=(gnome-shell)
+_uuid="user-theme@gnome-shell-extensions.gcampax.github.com"
+source=("https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v${pkgver}.shell-extension.zip")
+sha256sums=('bd2005d6c61e3a62aaff75a66240dc915fa96f5051beae2e96f073f43eec70cd')
+noextract=("user-themegnome-shell-extensions.gcampax.github.com.v${pkgver}.shell-extension.zip")
+
+package() {
+    install -dm755 "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+    bsdtar -xf "$srcdir/user-themegnome-shell-extensions.gcampax.github.com.v${pkgver}.shell-extension.zip" \
+        -C "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+}

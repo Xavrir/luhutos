@@ -1,0 +1,26 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-devtools
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="LuhutOS developer tools meta-package"
+arch=(any)
+license=(MIT)
+depends=(
+    base-devel
+    git
+    clang
+    llvm
+    rust
+    cargo
+    go
+    nodejs
+    npm
+    python
+    python-pip
+    docker
+    docker-compose
+)
+
+package() {
+    :
+}

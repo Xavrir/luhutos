@@ -1,0 +1,27 @@
+# Maintainer: LuhutOS Team
+pkgname=luhutos-gnome
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="LuhutOS GNOME desktop meta-package with macOS-like defaults"
+arch=(any)
+license=(MIT)
+depends=(
+    gnome
+    gnome-tweaks
+    luhutos-theme-whitesur
+    luhutos-icons-whitesur
+    luhutos-extension-dash-to-dock
+    luhutos-extension-user-themes
+    luhutos-extension-blur-my-shell
+)
+install=luhutos-gnome.install
+
+package() {
+    # Install dconf profile
+    install -Dm644 "$startdir/luhutos.dconf" \
+        "$pkgdir/etc/dconf/db/local.d/00-luhutos"
+    
+    # Install profile configuration
+    install -dm755 "$pkgdir/etc/dconf/profile"
+    echo -e "user-db:user\nsystem-db:local" > "$pkgdir/etc/dconf/profile/user"
+}

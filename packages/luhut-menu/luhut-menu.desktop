@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Luhut Menu
+Comment=LuhutOS System Management
+Exec=luhut-menu
+Icon=preferences-system
+Terminal=false
+Type=Application
+Categories=System;Settings;
+Keywords=luhut;drivers;steam;docker;update;repair;
+StartupNotify=true

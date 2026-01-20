@@ -1,0 +1,20 @@
+# Maintainer: LuhutOS Team
+# Blur my Shell GNOME Shell Extension
+pkgname=luhutos-extension-blur-my-shell
+pkgver=67
+pkgrel=1
+pkgdesc="Blur my Shell GNOME Shell extension for LuhutOS"
+arch=(any)
+url="https://extensions.gnome.org/extension/3193/blur-my-shell/"
+license=(GPL3)
+depends=(gnome-shell)
+_uuid="blur-my-shell@aunetx"
+source=("https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v${pkgver}.shell-extension.zip")
+sha256sums=('6423bda910e6d739e5101623abdc43f539f404d706bbc9c554502a2473365446')
+noextract=("blur-my-shellaunetx.v${pkgver}.shell-extension.zip")
+
+package() {
+    install -dm755 "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+    bsdtar -xf "$srcdir/blur-my-shellaunetx.v${pkgver}.shell-extension.zip" \
+        -C "$pkgdir/usr/share/gnome-shell/extensions/${_uuid}"
+}

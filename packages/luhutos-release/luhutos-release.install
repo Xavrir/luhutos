@@ -1,0 +1,18 @@
+post_install() {
+    echo ""
+    echo "================================================"
+    echo " Welcome to LuhutOS!"
+    echo "================================================"
+    echo ""
+    echo "Your system is now branded as LuhutOS."
+    echo ""
+    echo "To complete setup, ensure the LuhutOS repository"
+    echo "is added to /etc/pacman.conf:"
+    echo ""
+    echo "  Include = /etc/pacman.d/luhutos.conf"
+    echo ""
+}
+
+post_upgrade() {
+    post_install
+}

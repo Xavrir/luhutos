@@ -1,4 +1,4 @@
-# LuhutOS
+# LuhutOS [ONGOING PROJECT]
 
 An Arch-based Linux distribution with GNOME Wayland, safe GPU handling, and macOS-like polish.
 
